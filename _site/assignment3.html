@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 3</title>
+    <style>
+    body{
+      background-image: url("background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <script>
+        function f(){
+        window.location.href="index.html";
+        }
+  	</script>
+
+    <div style="position:absolute; top:80px; left:300px; width:600px; height:100px; color:white">
+      <input type="button" value="Homepage" onclick="f();">
+
+    </div>
+
+    <script>
+        function displayDate(){
+        	document.getElementById("demo").innerHTML=Date();
+        }
+    </script>
+    <div style="position:absolute; top:100px; left:300px; width:600px; height:100px; color:white">
+        <h1>My JavaScript homework</h1>
+        <p id="demo">Come on! </p>
+
+        <button type="button" onclick="displayDate()">Show me the date</button>
+
+    </div>
+
+  </body>
