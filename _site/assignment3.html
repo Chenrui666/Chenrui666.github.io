@@ -23,7 +23,6 @@
 
     <div style="position:absolute; top:80px; left:300px; width:600px; height:100px; color:white">
       <input type="button" value="Homepage" onclick="f();">
-
     </div>
 
     <script>
@@ -31,12 +30,53 @@
         	document.getElementById("demo").innerHTML=Date();
         }
     </script>
-    <div style="position:absolute; top:100px; left:300px; width:600px; height:100px; color:white">
-        <h1>My JavaScript homework</h1>
-        <p id="demo">Come on! </p>
+    <div style="position:absolute; top:100px; left:300px; width:900px; height:100px; color:white">
+        <h1 align="center" style="color:white ; font-size:50px">Game 1</h1>
+        <p id="demo" align="center">
+          Click the button below!
+        </p>
 
-        <button type="button" onclick="displayDate()">Show me the date</button>
+        <div align="center"><button type="button" onclick="displayDate()" >Show me the date</button></div>
 
     </div>
+    <script>
+        function changeImage()
+        {
+        	element=document.getElementById('myimage')
+        	if (element.src.match("bulbon"))
+         	{
+          		element.src="wonderful.png";
+          	}
+        	else
+           {
+          		element.src="wonderful-on.png";
+           }
+        }
+    </script>
+
+
+    <script>
+        function changeImage1()
+        {
+          element=document.getElementById('myimage1')
+          if (element.src.match("bulbon"))
+          {
+              element.src="terrible.png";
+            }
+          else
+           {
+              element.src="terrible-on.png";
+           }
+        }
+    </script>
+
+<div style="position:absolute; top:350px; left:300px; width:910px; height:100px; color:white">
+  <h1 align="center" style="color:white ; font-size:50px">Game 2: How's your weekend?</h1>
+    <img id="myimage" onclick="changeImage()"
+    src="wonderful.png" width="450" height="225">
+
+    <img id="myimage1" onclick="changeImage1()"
+    src="terrible.png" width="450" height="225">
+</div>
 
   </body>

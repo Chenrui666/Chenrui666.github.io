@@ -1,0 +1,29 @@
+---
+---
+
+$myredcolor: #bb8800;
+$big-font-size: 32px;
+$my-border: 2px solid blue;
+
+
+@mixin fontstyle($size){
+  color: $myredcolor;
+  text-decoration: line-through;
+}
+h1{
+
+  color: $myredcolor;
+  border: $my-border;
+  font-size: $big-font-size;
+}
+.redParagraph{
+  @include fontstyle($big-font-size * 2);
+  color: $myredcolor;
+  font-size: $big-font-size;
+}
+.redParagraph{
+
+}
+#first-Paragraph {
+   font-size: 18px;
+}

@@ -1,7 +1,13 @@
-.redParagraph{
-  color: red;
-  font-size: 32px:
-}
+h1 {
+  color: #bb8800;
+  border: 2px solid blue;
+  font-size: 32px; }
+
+.redParagraph {
+  color: #bb8800;
+  text-decoration: line-through;
+  color: #bb8800;
+  font-size: 32px; }
+
 #first-Paragraph {
-   font-size: 18px;
-}
+  font-size: 18px; }
