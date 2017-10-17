@@ -11,17 +11,40 @@
     <svg width="2000" id="mysvg">
 
 </svg>
+
+
+
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
     function draw(dataArray){
       var myData = [25, 5];
       var svg = d3.select("#mysvg");
+
+      var labels = svg.selectAll(".label")
+        .data(dataArray);
+
+      labels.exit().remove();
+      var enterLabels = labels.enter().append("text")
+        .attr("class","label")
+        .attr("y","20")
+        .attr("font-size","8px")
+        .attr("text-anchor", "middle")
+        .attr("x", function(d,index){
+          return 50 * (index + 1);
+        });
+
+      labels.merge(enterLabels)
+        .text(function(d){
+          return d.country;
+      });
+
       var circles =svg.selectAll(".dot")
         .data(dataArray);
 
       circles.exit()
         .transition().duration(1000)
         .attr("r", 0)
+        .attr("fill", "pink")
         .remove();
 
       var enterCircles = circles.enter().append("circle")
@@ -30,14 +53,25 @@
           return 50 * (index + 1);
         })
         .attr("cy", "50")
+        .attr("fill", "pink")
         .attr("class", "dot");
 
       circles.merge(enterCircles)
-      .transition().duration(1000)
+      .transition().duration(2000)
       .attr("r", function(d){
-        return d;
+        return d.value;
       })
+      .attr("fill",function(d){
+        return d.color;
+      });
     }
+
+
+    d3.json("data.json",function(error,data){
+      console.log(data);
+      draw(data);
+    });
+    console.log("Hi");
 </script>
 
 

@@ -1,0 +1,17 @@
+[
+  {
+    "country": "usa",
+    "value": 10,
+    "color": "yellow"
+  },
+  {
+    "country": "italy",
+    "value": 20,
+    "color": "red"
+  },
+  {
+    "country": "china",
+    "value": 30,
+    "color": "green"
+  }
+]
