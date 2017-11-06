@@ -1,0 +1,29 @@
+---
+layout: bare
+title: My Homepage
+---
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+  d3.queue()
+    .defer(d3.csv, "Mnutrition.csv")
+    .defer(d3.csv, "BKnutrition.csv")
+    .awaitAll(function(error, data){
+
+      var mcdonaldsData = data[0];
+
+      mcdonaldsData.forEach(function(food){
+        //d.index = i;//d["index"]中间有空格用这种方式
+        for (var column in food){
+          var num = +food[column];
+          if (isNaN(num) == false){
+            food[column] = num;
+          }
+        }
+
+      });
+      console.log(mcdonaldsData);
+    });
+
+</script>

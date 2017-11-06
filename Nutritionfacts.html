@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>D3-final assignment</title>
+    <style>
+    body {
+      text-align: center;
+    }
+
+        .bannerbox {
+            width:100%;
+            position:relative;
+            overflow:hidden;
+            height:1000px;
+        }
+        .banner {
+            width:1920px;
+            position:absolute;
+            left:50%;
+            margin-left:-960px;
+
+        }
+
+        #buttonBox {
+
+            height: 60px;
+            width: auto;
+            line-height: 4em;
+            text-align: center;
+            background-color: white;
+            padding: 10px;
+        }
+        #D3 {
+            margin-right: auto;
+            margin-left: auto;
+        }
+        #footer {
+
+            height: 60px;
+            width: auto;
+            line-height: 2em;
+            text-align: center;
+            background-color: red;
+            padding: 10px;
+            color: white;
+        }
+    </style>
+
+  </head>
+  <body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <div class="bannerbox">
+       <div class="banner">
+           <img src="banner-02-01.jpg">
+       </div>
+   </div>
+<svg height="50"></svg>
+   <div id="buttonBox">
+     <input type="button" value="Show me the calories" onclick="f();">
+     <input type="button" value="Show me the sodium" onclick="f();">
+   </div>
+   <div id="D3">
+     <svg width="auto" height="500">
+       <rect  width="800px" height="450px" fill="lightgray"  />
+     </svg>
+   </div>
+
+
+   <div id="buttonBox">
+     <input type="button" value="Show me the calories" onclick="f();">
+     <input type="button" value="Show me the sodium" onclick="f();">
+   </div>
+   <div id="D3">
+     <svg width="auto" height="500">
+       <rect  width="800px" height="450px" fill="lightgray"  />
+     </svg>
+   </div>
+
+   <div id="footer">
+     <p>Copyright | CHENRUI 2017</p>
+
+   </div>
+
+
+
+
+  </body>
+</html>
