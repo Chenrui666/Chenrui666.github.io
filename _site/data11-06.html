@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>11-06</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg id="mysvg"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+<script>
+
+  d3.queue()
+    .defer(d3.json, "world.json")
+    .defer(d3.json, "usa.json")
+    .awaitAll(function(error, data){
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+      var geoJSON = topojson.feature(data[0],data[0].objects.countries);
+      var proj = d3.geoMercator()
+      .fitSize([width, height], geoJSON);
+      var path = d3.geoPath()
+      .projection(proj);
+
+      var svg = d3.select("#mysvg")
+      .style("background-color", "lightblue")
+      .attr("width", window.innerWidth)
+      .attr("height", window.innerHeight)
+
+      var countries = svg.selectAll("path")
+      .data(geoJSON.features);
+
+      countries.enter().append("path")
+      .attr("d",function(d){
+        return path(d);
+      })
+      .attr("fill","white")
+      .attr("stroke-color","black")
+      .attr("stroke-width","2px");
+
+      var points = [
+        {"name": "Boston", "coords": [-71.0589, 42.3601]},
+        {"name": "London", "coords": [-0.1278, 51.5074]}
+      ];
+
+      var points = svg.selectAll("circle")
+        .data(points);
+
+      points.enter().append("rect")
+        .attr("transform", function(d){
+          return "translate(" + proj(d.coords) + ")";
+        })
+        .attr("width", "2px")
+        .attr("height","2px")
+        .attr("fill", "gray")
+
+
+      console.log(geoJSON);
+    });
+
+</script>
+
+
+  </body>
+</html>
