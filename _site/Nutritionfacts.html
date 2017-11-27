@@ -38,7 +38,7 @@
 
             height: 60px;
             width: auto;
-            line-height: 4em;
+            line-height: 1em;
             text-align: center;
             background-color: white;
             padding: 10px;
@@ -69,20 +69,27 @@
        </div>
     </div>
 
-     <div id="buttonBox">
-       <h1 class="title">Calories, Sodium and Fat</h1>
 
-       <input type="button" value="Overview" onclick="f();">
-       <input type="button" value="McDonalds" onclick="f();">
-       <input type="button" value="Burger King" onclick="f();">
-     </div>
 
      <div>
+       <h1 class="title">Calories, Sodium and Fat</h1>
+
        <svg id="chart1" width="960" height="500"></svg>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="overviewScatterplot.js"></script>
 
 
+     </div>
+     <div id="buttonBox">
+
+       <input type="button" value="Overview" onclick="f();">
+       <input type="button" value="McDonalds" onclick="f();">
+       <input type="button" value="Burger King" onclick="f();">
+       <p>
+         The Size of the dots shows the fat from different food
+         while the x axis working for the sodium and the y axis working for the calories.
+
+       </p>
      </div>
 
 
