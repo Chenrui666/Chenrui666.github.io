@@ -1,20 +1,13 @@
 ---
 ---
 
-body {
-  font: 10px sans-serif;
+.axis .domain {
+  display: none;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
-}
 
-.dot {
-  stroke: white;
-  fill-opacity: 0.6;
+.g:hover{
+  fill:
 }
 
 div.tooltip {

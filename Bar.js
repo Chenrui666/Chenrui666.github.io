@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<style>
-
-.axis .domain {
-  display: none;
-}
-
-
-.g:hover{
-  fill:
-}
-
-div.tooltip {
-  position:absolute;
-  text-align: center;
-  width: 100px;
-  padding: 2px;
-  font: 12px sans-serif ;
-  border: 0px;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-</style>
-<svg width="900" height="500"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-
-var svg = d3.select("svg"),
+var svg = d3.select("#chart2"),
     margin = {top: 40, right: 80, bottom: 40, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
@@ -155,5 +127,3 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
       .attr("dy", "0.32em")
       .text(function(d) { return d; });
 });
-
-</script>

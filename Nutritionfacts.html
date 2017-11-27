@@ -23,7 +23,7 @@
             width:100%;
             position:relative;
             overflow:hidden;
-            height:600px;
+            height:1000px;
         }
         .banner {
             width:1920px;
@@ -65,39 +65,40 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <div class="bannerbox">
        <div class="banner">
-           <h1 class="title" >Nutrition Facts</h1>
-           <img src="banner-01.png">
+           <img src="banner-02-01.jpg">
        </div>
-   </div>
-<svg height="50"></svg>
-   <div id="buttonBox">
-     <input type="button" value="Show me the calories" onclick="f();">
-     <input type="button" value="Show me the sodium" onclick="f();">
-   </div>
+    </div>
 
-   <div>
-     <svg id="chart1" width="960" height="500"></svg>
-      <script src="https://d3js.org/d3.v4.min.js"></script>
-      <script src="scatterplot.js"></script>
+     <div id="buttonBox">
+       <input type="button" value="Overview" onclick="f();">
+       <input type="button" value="McDonalds" onclick="f();">
+       <input type="button" value="Burger King" onclick="f();">
+     </div>
 
-
-   </div>
+     <div>
+       <svg id="chart1" width="960" height="500"></svg>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="overviewScatterplot.js"></script>
 
 
-   <div id="buttonBox">
-     <input type="button" value="Show me the calories" onclick="f();">
-     <input type="button" value="Show me the sodium" onclick="f();">
-   </div>
-   <div id="D3">
-     <svg width="960" height="500">
-       <rect  width="800px" height="450px" fill="lightgray"  />
-     </svg>
-   </div>
+     </div>
 
-   <div id="footer">
-     <p>Copyright | CHENRUI 2017</p>
 
-   </div>
+     <div id="buttonBox">
+       <h1 class="title">Average Calories</h1>
+       <input type="button" value="Show me the calories" onclick="f();">
+       <input type="button" value="Show me the sodium" onclick="f();">
+     </div>
+     <div id="D3">
+       <svg id="chart2" width="960" height="500"> </svg>
+       <script src="https://d3js.org/d3.v4.min.js"></script>
+       <script src="Bar.js"></script>
+     </div>
+
+     <div id="footer">
+       <p>Copyright | CHENRUI 2017</p>
+
+     </div>
 
 
 

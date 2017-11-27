@@ -10,6 +10,17 @@
   fill:
 }
 
+div.tooltip {
+  position:absolute;
+  text-align: center;
+  width: 100px;
+  padding: 2px;
+  font: 12px sans-serif ;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
 </style>
 <svg width="900" height="500"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -46,6 +57,11 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
 
   var keys = data.columns.slice(1);
 
+  var div = d3.select("body").append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0)
+          .style("position","absolute");
+
   x0.domain(data.map(function(d) { return d.Category; }));
   x1.domain(keys).rangeRound([0, x0.bandwidth()]);
   y.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
@@ -73,7 +89,14 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
             else return "orange";
           });
 
-        d3.select(this)
+        d3.select("div")
+          .transition()
+          .duration(50)
+          .style("opacity", 0.8)
+          .style("left", x1(d.key))
+          .style("top", y(d.value));
+
+          div.html(d.value)
 
 
       })
@@ -85,6 +108,7 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
             if (d.key == "BK") return "#FCCC92";
             else return "#FC5B5B";
           })
+
 
       });
 

@@ -150,14 +150,14 @@ d3.queue()
                 .style("opacity", 0.8)
                 .style("left", x(d.Sodium) + "px")
                 .style("top", y(d.Calories) + "px")
-                .attr("background-color", function(d){
-                  if (d.Store === "Burger King") {
-                    return "orange";
-                  }
-                  else {
-                    return "red";
-                  }
-                });
+                // .attr("backgroundColor", function(d){
+                //   if (d.Store === "Burger King") {
+                //     return "orange";
+                //   }
+                //   else {
+                //     return "red";
+                //   }
+                // });
             div .html(d.Item + "</br>"
                       + "Calories: " + d.Calories + "</br>"
                       + "Sodium: " + d.Sodium + " mg" + "</br>"

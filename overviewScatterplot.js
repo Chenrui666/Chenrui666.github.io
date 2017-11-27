@@ -1,52 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
-}
-
-.dot {
-  stroke: white;
-  fill-opacity: 0.6;
-}
-
-div.tooltip {
-  position:absolute;
-  text-align: center;
-  width: 100px;
-  padding: 2px;
-  font: 12px sans-serif ;
-  border: 0px;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-.choice {
-  position: absolute;
-  text-align: center;
-  width: 100px;
-  height: 50px;
-  padding: 2px;
-  font: 12px sans-serif;
-  background: green;
-  border: 0px;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-</style>
-<body>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -61,7 +12,7 @@ var y = d3.scaleLinear()
 
 
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart1").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -150,14 +101,6 @@ d3.queue()
                 .style("opacity", 0.8)
                 .style("left", x(d.Sodium) + "px")
                 .style("top", y(d.Calories) + "px")
-                // .attr("backgroundColor", function(d){
-                //   if (d.Store === "Burger King") {
-                //     return "orange";
-                //   }
-                //   else {
-                //     return "red";
-                //   }
-                // });
             div .html(d.Item + "</br>"
                       + "Calories: " + d.Calories + "</br>"
                       + "Sodium: " + d.Sodium + " mg" + "</br>"
@@ -175,34 +118,3 @@ d3.queue()
 
 
         });
-
-
-
-
-
-
-
-
-
-  // var legend = svg.selectAll(".legend")
-  //     //.data(color.domain())
-  //   .enter().append("g")
-  //     .attr("class", "legend")
-  //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-  //
-  // legend.append("rect")
-  //     .attr("x", width - 18)
-  //     .attr("width", 18)
-  //     .attr("height", 18)
-  //     .style("fill", "orange");
-  //
-  // legend.append("text")
-  //     .attr("x", width - 24)
-  //     .attr("y", 9)
-  //     .attr("dy", ".35em")
-  //     .style("text-anchor", "end")
-  //     .text(function(d) { return d; });
-
-});
-
-</script>
