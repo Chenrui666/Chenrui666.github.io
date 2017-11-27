@@ -1,5 +1,3 @@
-
-
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -17,29 +15,44 @@ var y = d3.scaleLinear()
 var svg = d3.select("#chart1").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var div = d3.select("body").append("div")
         .attr("class", "tooltip")
-        .style("opacity", 0);
+        .style("opacity", 0)
+        .style("position","absolute");
 
 var choice = d3.select("body").append("choice");
 
 
+d3.queue()
+  .defer(d3.csv, "BKnutrition-clean.csv")
+  .defer(d3.csv, "Mnutrition-clean.csv")
+  .awaitAll(function(error, data) {
 
-d3.csv("BKnutrition-clean.csv", function(error, data) {
   if (error) throw error;
+  var BKdata = data[0];
+  var Mdata = data[1];
+  console.log(BKdata)
+  console.log(Mdata);
 
-  data.forEach(function(d) {
+  BKdata.forEach(function(d) {
+    d.Store = "Burger King";
     d.Sodium = +d.Sodium;
     d.Calories = +d.Calories;
   });
 
+  Mdata.forEach(function(d) {
+    d.Store = "McDonalds";
+    d.Sodium = +d.Sodium;
+    d.Calories = +d.Calories;
+  });
 
+  var combinedData = BKdata.concat(Mdata);
 
-  x.domain(d3.extent(data, function(d) { return d.Sodium; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.Calories; })).nice();
+  x.domain(d3.extent(combinedData, function(d) { return d.Sodium; })).nice();
+  y.domain(d3.extent(combinedData, function(d) { return d.Calories; })).nice();
 
   svg.append("g")
       .attr("class", "axis")
@@ -49,6 +62,7 @@ d3.csv("BKnutrition-clean.csv", function(error, data) {
       .attr("x", width)
       .attr("y", -6)
       .attr("text-anchor", "end")
+      .attr("fill", "black")
       .text("Sodium (mg)");
 
   svg.append("g")
@@ -59,10 +73,11 @@ d3.csv("BKnutrition-clean.csv", function(error, data) {
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("text-anchor", "strat")
+      .attr("fill", "black")
       .text("Calories");
 
   svg.selectAll(".dot")
-      .data(data)
+      .data(combinedData)
     .enter().append("circle")
       .attr("class", "dot")
       .attr("r", function(d) {
@@ -72,17 +87,25 @@ d3.csv("BKnutrition-clean.csv", function(error, data) {
       })
       .attr("cx", function(d) { return x(d.Sodium); })
       .attr("cy", function(d) { return y(d.Calories); })
-      .attr("fill", "orange")
+      .attr("fill", function(d) {
+        if (d.Store === "Burger King") {
+          return "orange";
+        }
+        else {
+          return "red";
+        }
+      })
       .on("mouseover", function(d) {
             div.transition()
                 .duration(50)
-                .style("opacity", 0.9);
+                .style("opacity", 0.8)
+                .style("left", x(d.Sodium) + "px")
+                .style("top", y(d.Calories) + "px")
             div .html(d.Item + "</br>"
                       + "Calories: " + d.Calories + "</br>"
                       + "Sodium: " + d.Sodium + " mg" + "</br>"
                       + "Fat: " + d.TotalFat + " g")
-                .style("left", (d3.Sodium) + "px")
-                .style("top", (d3.Calories - 28) + "px");
+
             })
         .on("mouseout", function(d) {
             div.transition()
@@ -95,27 +118,4 @@ d3.csv("BKnutrition-clean.csv", function(error, data) {
 
 
         });
-
-
-
-
-  var legend = svg.selectAll(".legend")
-      //.data(color.domain())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", "orange");
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
 });
