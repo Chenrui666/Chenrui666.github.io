@@ -14,11 +14,6 @@ var x1 = d3.scaleBand()
 var y = d3.scaleLinear()
     .rangeRound([height, 0]);
 
-var z = d3.scaleOrdinal()
-    .range(["#FCCC92", "#FC5B5B"]);
-
-var colorLegend = d3.scaleOrdinal()
-        .range(["orange", "red"]);
 
 
 d3.csv("cate-cal.csv", function(d, i, columns) {

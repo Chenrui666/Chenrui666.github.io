@@ -7,12 +7,15 @@
     body {
       text-align: center;
     }
+    iframe {
+      border:0;
+    }
         .title{
             font-size: 48px;
             font-weight: bold;
             font-family: sans-serif;
 
-            color: darkorange;
+            color: Gray;
 
 
 
@@ -74,15 +77,13 @@
      <div>
        <h1 class="title">Calories, Sodium and Fat</h1>
 
-       <svg id="chart1" width="960" height="500"></svg>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="overviewScatterplot.js"></script>
+       <iframe src="scatterplot.html" width=980 height=530></iframe>
 
 
      </div>
      <div id="buttonBox">
 
-       <input type="button" value="Overview" onclick="f();">
+       <input type="button" value="Overview" >
        <input type="button" value="McDonalds" onclick="f();">
        <input type="button" value="Burger King" onclick="f();">
        <p>
@@ -90,18 +91,22 @@
          while the x axis working for the sodium and the y axis working for the calories.
 
        </p>
+       <script>
+          d3.selectAll("button")
+          .on("click", function(){
+            draw(this.id);
+          });
+          draw("McDonalds");
+       </script>
      </div>
 
 
-     <div id="buttonBox">
+     <div>
        <h1 class="title">Average Calories</h1>
+       <iframe src="AverageBars.html" width=970 height=510></iframe>
 
      </div>
-     <div id="D3">
-       <svg id="chart2" width="960" height="500"> </svg>
-       <script src="https://d3js.org/d3.v4.min.js"></script>
 
-     </div>
 
      <div id="footer">
        <p>Copyright | CHENRUI 2017</p>

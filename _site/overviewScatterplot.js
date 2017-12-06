@@ -12,7 +12,7 @@ var y = d3.scaleLinear()
 
 
 
-var svg = d3.select("#chart1").append("svg")
+var svg = d3.select("#chart1")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -101,6 +101,14 @@ d3.queue()
                 .style("opacity", 0.8)
                 .style("left", x(d.Sodium) + "px")
                 .style("top", y(d.Calories) + "px")
+                .style("background-color", function(){
+                  if (d.Store === "Burger King") {
+                    return "orange";
+                  }
+                  else {
+                    return "red";
+                  }
+                })
             div .html(d.Item + "</br>"
                       + "Calories: " + d.Calories + "</br>"
                       + "Sodium: " + d.Sodium + " mg" + "</br>"
@@ -118,4 +126,24 @@ d3.queue()
 
 
         });
+
+
+        var legend = svg.selectAll(".legend")
+            .data(Store)
+          .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", "orange");
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
 });

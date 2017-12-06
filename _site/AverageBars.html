@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <style>
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .axis .domain {
   display: none;
 }
@@ -13,7 +18,6 @@
 div.tooltip {
   position:absolute;
   text-align: center;
-  width: 100px;
   padding: 2px;
   font: 12px sans-serif ;
   border: 0px;
@@ -22,7 +26,7 @@ div.tooltip {
 }
 
 </style>
-<svg width="900" height="500"></svg>
+<svg width="960" height="500"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -44,9 +48,6 @@ var y = d3.scaleLinear()
 
 var z = d3.scaleOrdinal()
     .range(["#FCCC92", "#FC5B5B"]);
-
-var colorLegend = d3.scaleOrdinal()
-        .range(["orange", "red"]);
 
 
 d3.csv("cate-cal.csv", function(d, i, columns) {
@@ -72,31 +73,30 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
     .enter().append("g")
       .attr("transform", function(d) { return "translate(" + x0(d.Category) + ",0)"; })
     .selectAll("rect")
-    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key], Category: d.Category}; }); })
     .enter().append("rect")
       .attr("x", function(d) { return x1(d.key); })
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x1.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", function(d) {
-        if (d.key == "BK") return "#FCCC92";
+        if (d.key == "Burger King") return "#FCCC92";
         else return "#FC5B5B";
       })
       .on("mouseover",function(d,i){
         d3.select(this)
           .attr("fill" , function(d) {
-            if (d.key == "M") return "red";
+            if (d.key == "McDonalds") return "red";
             else return "orange";
           });
-
-        d3.select("div")
+        div
+          .html(d.value)
           .transition()
           .duration(50)
           .style("opacity", 0.8)
-          .style("left", x1(d.key))
-          .style("top", y(d.value));
+          .style("left", (margin.left + x0(d.Category) + x1(d.key)) + "px")
+          .style("top", (margin.top + y(d.value)) + "px");
 
-          div.html(d.value)
 
 
       })
@@ -105,9 +105,12 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
           .transition()
               .duration(300)
           .attr("fill",function(d) {
-            if (d.key == "BK") return "#FCCC92";
+            if (d.key == "Burger King") return "#FCCC92";
             else return "#FC5B5B";
-          })
+          });
+          div.transition()
+             .duration(100)
+             .style("opacity",0);
 
 
       });
