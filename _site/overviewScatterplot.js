@@ -59,20 +59,22 @@ d3.queue()
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
     .append("text")
-      .attr("x", width)
+      .attr("x", width+14)
       .attr("y", -6)
       .attr("text-anchor", "end")
       .attr("fill", "black")
+      .attr("font-weight", "bold")
       .text("Sodium (mg)");
 
   svg.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y))
     .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("x", 42)
+      .attr("y", -3)
       .attr("dy", "0.71em")
       .attr("text-anchor", "strat")
+      .attr("font-weight", "bold")
       .attr("fill", "black")
       .text("Calories");
 
@@ -119,20 +121,16 @@ d3.queue()
             div.transition()
                 .duration(100)
                 .style("opacity", 0);
-        })
-        .on("click", function(d) {
-           if (d.TotalFat <= 300 & d.Sodium<= 400) return "Good choice!";
-           else return "Maybe think about this choice again?"
-
-
         });
 
 
         var legend = svg.selectAll(".legend")
             .data(Store)
-          .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+            .enter().append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) {
+                return "translate(0," + i * 20 + ")";
+              });
 
         legend.append("rect")
             .attr("x", width - 18)

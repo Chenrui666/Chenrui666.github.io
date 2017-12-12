@@ -19,7 +19,7 @@ div.tooltip {
   position:absolute;
   text-align: center;
   padding: 2px;
-  font: 12px sans-serif ;
+  font: 6px sans-serif ;
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
@@ -31,14 +31,14 @@ div.tooltip {
 <script>
 
 var svg = d3.select("svg"),
-    margin = {top: 40, right: 80, bottom: 40, left: 80},
+    margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var x0 = d3.scaleBand()
     .rangeRound([0, width])
-    .paddingInner(0.28);
+    .paddingInner(0.3);
 
 var x1 = d3.scaleBand()
     .padding(0.1);
@@ -47,13 +47,13 @@ var y = d3.scaleLinear()
     .rangeRound([height, 0]);
 
 var z = d3.scaleOrdinal()
-    .range(["#FCCC92", "#FC5B5B"]);
+    .range(["#FC5B5B", "#FCCC92"]);
 
 
 d3.csv("cate-cal.csv", function(d, i, columns) {
-  for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
-  return d;
-}, function(error, data) {
+    for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
+    return d;
+  }, function(error, data) {
   if (error) throw error;
 
   var keys = data.columns.slice(1);
@@ -63,17 +63,30 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
           .style("opacity", 0)
           .style("position","absolute");
 
-  x0.domain(data.map(function(d) { return d.Category; }));
-  x1.domain(keys).rangeRound([0, x0.bandwidth()]);
-  y.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
-  console.log(data);
+  x0.domain(data.map(function(d) {
+    return d.Category;
+  }));
+  x1.domain(keys)
+    .rangeRound([0, x0.bandwidth()]);
+  y.domain([0, d3.max(data, function(d) {
+    return d3.max(keys, function(key) {
+      return d[key];
+    });
+  })]).nice();
+
   g.append("g")
     .selectAll("g")
     .data(data)
     .enter().append("g")
-      .attr("transform", function(d) { return "translate(" + x0(d.Category) + ",0)"; })
+      .attr("transform", function(d) {
+        return "translate(" + x0(d.Category) + ",0)";
+      })
     .selectAll("rect")
-    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key], Category: d.Category}; }); })
+    .data(function(d) {
+      return keys.map(function(key) {
+        return {key: key, value: d[key], Category: d.Category};
+      });
+     })
     .enter().append("rect")
       .attr("x", function(d) { return x1(d.key); })
       .attr("y", function(d) { return y(d.value); })
@@ -122,12 +135,12 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
 
   g.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(null, "s"))
+      .call(d3.axisLeft(y))
     .append("text")
       .attr("x", 2)
       .attr("y", y(y.ticks().pop()) + 0.5)
       .attr("dy", "0.32em")
-      .attr("fill", "#000")
+      .attr("fill", "black")
       .attr("font-weight", "bold")
       .attr("text-anchor", "start")
       .text("Calories");
@@ -141,22 +154,25 @@ d3.csv("cate-cal.csv", function(d, i, columns) {
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
       .attr("text-anchor", "end")
-    .selectAll("g")
-    .data(keys.slice().reverse())
-    .enter().append("g")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+      .selectAll("g")
+      .data(keys.slice().reverse())
+      .enter().append("g")
+        .attr("transform", function(d, i) {
+          return "translate(0," + i * 20 + ")";
+        });
 
   legend.append("rect")
-      .attr("x", width - 19)
-      .attr("width", 19)
-      .attr("height", 19)
+      .attr("x", width - 35)
+      .attr("width", 30)
+      .attr("height", 20)
       .attr("fill", z);
 
   legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9.5)
+      .attr("x", width - 40)
+      .attr("y", 12)
       .attr("dy", "0.32em")
-      .text(function(d) { return d; });
+      .text(function(d) {
+        return d; });
 });
 
 </script>

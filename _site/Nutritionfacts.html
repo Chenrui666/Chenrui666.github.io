@@ -4,29 +4,104 @@
     <meta charset="utf-8" />
     <title>Nutrition Facts</title>
     <style>
-    body {
-      text-align: center;
-    }
-    iframe {
-      border:0;
-    }
+        body {
+          text-align: center;
+        }
+        iframe {
+          border:0;
+        }
         .title{
-            font-size: 48px;
+            font-size: 30px;
             font-weight: bold;
-            font-family: sans-serif;
+            color: #595959;
+            line-height: 3em;
+        }
+        .pagename{
+          position:absolute;
+          top:30px;
+          left:20%;
+        }
+        .nav{
+          position:absolute;
+          top:30px;
+          right:20%;
+        }
+        ul{
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+        }
 
-            color: Gray;
+        li{
 
+          float: right;
+        }
+        li a{
+          font-size: 24px;
+          font-weight: bold;
 
+          display: block;
+          text-decoration: none;
+          color: white;
+          padding: 10px 20px;
+        }
+        li a:hover{
+          color: #FCCC92;
+        }
 
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
 
+        .dropdown .dropbtn {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: inherit;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 10px 20px;
+            background-color: inherit;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: none;
+        }
+
+        .dropdown-content a {
+            float: none;
+            font-size: 18px;
+            font-weight: lighter;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown:hover .dropbtn {
+          color:#FCCC92;
+        }
+        .dropdown-content a:hover {
+            color:#FCCC92;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
         .bannerbox {
             width:100%;
             position:relative;
             overflow:hidden;
-            height:1000px;
+            height:619px;
+            color:white;
+            font-size: 36px;
+            font-weight: bold;
         }
         .banner {
             width:1920px;
@@ -41,7 +116,7 @@
 
             height: 60px;
             width: auto;
-            line-height: 1em;
+            line-height: 1.5em;
             text-align: center;
             background-color: white;
             padding: 10px;
@@ -65,51 +140,76 @@
 
   </head>
   <body>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+
     <div class="bannerbox">
        <div class="banner">
-           <img src="banner-02-01.jpg">
+           <img src="banner-01.png">
+       </div>
+       <div class = pagename>Nutrition Facts</div>
+       <div class = "nav">
+         <ul>
+           <li><a href= "index.html">About Me</a></li>
+           <div class="dropdown">
+               <button class="dropbtn">Resources</button>
+               <div class="dropdown-content">
+                 <a href="https://www.kaggle.com/mcdonalds/nutrition-facts/data">McDonalds</a>
+                 <a href="https://www.bk.com/pdfs/nutrition.pdf">Burger King</a>
+               </div>
+           </div>
+         </ul>
        </div>
     </div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <script>
+      function BKData(){
+        document.getElementById("scatterplot").src = "scatterplotBK.html";
+      }
+
+      function OverviewData(){
+        document.getElementById("scatterplot").src = "scatterplot.html";
+      }
+
+      function MData(){
+        document.getElementById("scatterplot").src = "scatterplotM.html";
+      }
+
+    </script>
 
 
 
      <div>
        <h1 class="title">Calories, Sodium and Fat</h1>
 
-       <iframe src="scatterplot.html" width=980 height=530></iframe>
+       <iframe id= "scatterplot" src="scatterplot.html" width=980 height=530 scrolling ="no"></iframe>
 
 
      </div>
      <div id="buttonBox">
 
-       <input type="button" value="Overview" >
-       <input type="button" value="McDonalds" onclick="f();">
-       <input type="button" value="Burger King" onclick="f();">
+       <input type="button" value="Overview" onclick="OverviewData();">
+       <input type="button" value="McDonalds" onclick="MData();">
+       <input type="button" value="Burger King" onclick="BKData()">
        <p>
          The Size of the dots shows the fat from different food
          while the x axis working for the sodium and the y axis working for the calories.
+        </br>
+         Using the buttons above to search for the seperate stores facts.
 
        </p>
-       <script>
-          d3.selectAll("button")
-          .on("click", function(){
-            draw(this.id);
-          });
-          draw("McDonalds");
-       </script>
+
      </div>
 
 
      <div>
        <h1 class="title">Average Calories</h1>
-       <iframe src="AverageBars.html" width=970 height=510></iframe>
+       <iframe src="AverageBars.html" width=970 height=510 scrolling ="no"></iframe>
 
      </div>
 
 
      <div id="footer">
-       <p>Copyright | CHENRUI 2017</p>
+       <p>Copyright | Chenrui Ye | NEU 2017</p>
 
      </div>
 

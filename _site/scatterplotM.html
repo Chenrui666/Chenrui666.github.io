@@ -1,3 +1,37 @@
+<!DOCTYPE html>
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis .domain {
+  display: none;
+}
+
+.dot {
+  stroke: white;
+  fill-opacity: 0.6;
+}
+
+div.tooltip {
+  position:absolute;
+  text-align: center;
+  width: 100px;
+  padding: 2px;
+  font: 12px sans-serif ;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+
+
+</style>
+<body>
+<svg id="chart1"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -25,34 +59,16 @@ var div = d3.select("body").append("div")
 
 var choice = d3.select("body").append("choice");
 
-
-d3.queue()
-  .defer(d3.csv, "BKnutrition-clean.csv")
-  .defer(d3.csv, "Mnutrition-clean.csv")
-  .awaitAll(function(error, data) {
-
+d3.csv("Mnutrition-clean.csv", function(error, data) {
   if (error) throw error;
-  var BKdata = data[0];
-  var Mdata = data[1];
-  console.log(BKdata)
-  console.log(Mdata);
 
-  BKdata.forEach(function(d) {
-    d.Store = "Burger King";
+  data.forEach(function(d) {
     d.Sodium = +d.Sodium;
     d.Calories = +d.Calories;
   });
 
-  Mdata.forEach(function(d) {
-    d.Store = "McDonalds";
-    d.Sodium = +d.Sodium;
-    d.Calories = +d.Calories;
-  });
-
-  var combinedData = BKdata.concat(Mdata);
-
-  x.domain(d3.extent(combinedData, function(d) { return d.Sodium; })).nice();
-  y.domain(d3.extent(combinedData, function(d) { return d.Calories; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.Sodium; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.Calories; })).nice();
 
   svg.append("g")
       .attr("class", "axis")
@@ -79,38 +95,24 @@ d3.queue()
       .text("Calories");
 
   svg.selectAll(".dot")
-      .data(combinedData)
+      .data(data)
     .enter().append("circle")
       .attr("class", "dot")
       .attr("r", function(d) {
-        if (d.TotalFat == 0) return "1.5";
+        if (d.TotalFat == 0) return "2";
 
         else return (d.TotalFat/2);
       })
       .attr("cx", function(d) { return x(d.Sodium); })
       .attr("cy", function(d) { return y(d.Calories); })
-      .attr("fill", function(d) {
-        if (d.Store === "Burger King") {
-          return "orange";
-        }
-        else {
-          return "red";
-        }
-      })
+      .attr("fill", "red")
       .on("mouseover", function(d) {
             div.transition()
                 .duration(50)
                 .style("opacity", 0.8)
                 .style("left", x(d.Sodium) + "px")
                 .style("top", y(d.Calories) + "px")
-                .style("background-color", function(){
-                  if (d.Store === "Burger King") {
-                    return "orange";
-                  }
-                  else {
-                    return "red";
-                  }
-                })
+                .style("background", "red")
             div .html(d.Item + "</br>"
                       + "Calories: " + d.Calories + "</br>"
                       + "Sodium: " + d.Sodium + " mg" + "</br>"
@@ -121,6 +123,12 @@ d3.queue()
             div.transition()
                 .duration(100)
                 .style("opacity", 0);
+        })
+        .on("click", function(d) {
+           if (d.TotalFat <= 300 & d.Sodium<= 400) return "Good choice!";
+           else return "Maybe think about this choice again?"
+
+
         });
 
 
@@ -145,3 +153,7 @@ d3.queue()
             .style("text-anchor", "end")
             .text(function(d) { return d; });
 });
+
+</script>
+
+</body>
